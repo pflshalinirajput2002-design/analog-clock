@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Perfect Analog Clock</title>
+
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: white;
+    text-align: center;
+}
+
+.clock {
+    width: 500px;
+    height: 500px;
+    border: 20px solid #007c85;
+    border-radius: 50%;
+    margin: 40px auto;
+    position: relative;
+    background: white;
+}
+
+.center-point {
+    width: 18px;
+    height: 18px;
+    background: #1d263b;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Numbers */
+.number {
+    position: absolute;
+    font-size: 32px;
+    font-weight: bold;
+    color: #1d263b;
+}
+
+.number.n12 { top: 35px; left: 50%; transform: translateX(-50%); }
+.number.n3  { top: 50%; right: 35px; transform: translateY(-50%); }
+.number.n6  { bottom: 35px; left: 50%; transform: translateX(-50%); }
+.number.n9  { top: 50%; left: 35px; transform: translateY(-50%); }
+
+.number.n1  { top: 75px; right: 115px; }
+.number.n2  { top: 150px; right: 55px; }
+.number.n4  { bottom: 150px; right: 55px; }
+.number.n5  { bottom: 75px; right: 115px; }
+.number.n7  { bottom: 75px; left: 115px; }
+.number.n8  { bottom: 150px; left: 55px; }
+.number.n10 { top: 150px; left: 55px; }
+.number.n11 { top: 75px; left: 115px; }
+
+/* Brand */
+.brand {
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    font-weight: bold;
+    color: #007c85;
+}
+
+/* HANDS (perfect rotation center) */
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    transform: translateX(-50%) rotate(0deg);
+}
+
+/* Lengths & widths */
+.hour-hand {
+    width: 10px;
+    height: 120px;
+    background: #1d263b;
+    border-radius: 6px;
+}
+
+.minute-hand {
+    width: 6px;
+    height: 170px;
+    background: #1d263b;
+    border-radius: 6px;
+}
+
+.second-hand {
+    width: 3px;
+    height: 190px;
+    background: red;
+    border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="clock">
+
+    <div class="brand">AJANTA</div>
+
+    <!-- Clock Numbers -->
+    <div class="number n12">12</div>
+    <div class="number n1">1</div>
+    <div class="number n2">2</div>
+    <div class="number n3">3</div>
+    <div class="number n4">4</div>
+    <div class="number n5">5</div>
+    <div class="number n6">6</div>
+    <div class="number n7">7</div>
+    <div class="number n8">8</div>
+    <div class="number n9">9</div>
+    <div class="number n10">10</div>
+    <div class="number n11">11</div>
+
+    <!-- Hands -->
+    <div id="hour-hand"   class="hand hour-hand"></div>
+    <div id="minute-hand" class="hand minute-hand"></div>
+    <div id="second-hand" class="hand second-hand"></div>
+
+    <!-- Center pivot -->
+    <div class="center-point"></div>
+
+</div>
+
+<script>
+setInterval(() => {
+
+    let now = new Date();
+    let ss = now.getSeconds() * 6;                
+    let mm = now.getMinutes() * 6;                
+    let hh = now.getHours() * 30 + mm / 12;       
+
+    document.getElementById("second-hand").style.transform =
+        `translateX(-50%) rotate(${ss}deg)`;
+
+    document.getElementById("minute-hand").style.transform =
+        `translateX(-50%) rotate(${mm}deg)`;
+
+    document.getElementById("hour-hand").style.transform =
+        `translateX(-50%) rotate(${hh}deg)`;
+
+});
+</script>
+
+</body>
+</html>
